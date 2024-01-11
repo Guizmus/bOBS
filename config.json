@@ -1,9 +1,11 @@
 {
-    "OBS" : {
-        "active" : true,
-        "url" : "ws://127.0.0.1:4455"
+    "OBS": {
+        "active": false,
+        "url": "ws://127.0.0.1:4455"
     },
-    "Twitch" : {
-        "active" : true
+    "Twitch": {
+        "active": true,
+        "https_port": 8212,
+        "broadcaster_id": 39212301
     }
 }

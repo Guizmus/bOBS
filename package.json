@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@twurple/api": "^7.0.7",
+    "@twurple/auth": "^7.0.7",
+    "@twurple/eventsub-http": "^7.0.7",
+    "@twurple/eventsub-ngrok": "^7.0.7",
     "obs-websocket-js": "^5.0.3"
   }
 }
