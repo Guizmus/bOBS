@@ -1,19 +1,19 @@
 const _config = require('./config.json');
-const _credentials = require('./credentials.json');
 
-
-var APIs = {
+const APIs = {
     "OBS": require('./lib/OBS/'),
     "Twitch": require('./lib/Twitch/')
 }
-async function load_APIs() {
-    await APIs.OBS.initialize(_config, _credentials);
-    await APIs.Twitch.initialize(_config, _credentials);
+start()
+
+async function start()
+{
+    await APIs.OBS.initialize(_config);
+    await APIs.Twitch.initialize(_config);
     on_load();
 }
-load_APIs()
-
-async function on_load() {
+async function on_load()
+{
     console.log("On load !")
     // à partir d'ici, toutes les fonctions sont disponibles
     // appel synchrone, on attend le résultat avant d'avancer

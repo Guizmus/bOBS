@@ -13,6 +13,11 @@
             ],
             "program": "${workspaceFolder}\\index.js",
             "env": {
+                "NGROK_AUTHTOKEN": "",
+                "OBS_TOKEN": "",
+                "TWITCH_CLIENTID": "",
+                "TWITCH_CLIENTSECRET" : "",
+                "TWITCH_REFRESH_TOKEN" : ""
             }
         }
     ]
