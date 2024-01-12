@@ -4,6 +4,7 @@
     "@twurple/auth": "^7.0.7",
     "@twurple/eventsub-http": "^7.0.7",
     "@twurple/eventsub-ngrok": "^7.0.7",
-    "obs-websocket-js": "^5.0.3"
+    "obs-websocket-js": "^5.0.3",
+    "tmi.js": "^1.8.5"
   }
 }

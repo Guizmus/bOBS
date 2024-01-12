@@ -5,13 +5,14 @@ const APIs = {
     "Twitch": require('./lib/Twitch/')
 }
 start()
-
 async function start()
 {
     await APIs.OBS.initialize(_config);
     await APIs.Twitch.initialize(_config);
     on_load();
 }
+
+const commands = require("./lib/commands/")
 async function on_load()
 {
     console.log("On load !")
@@ -20,6 +21,11 @@ async function on_load()
     // console.log(await APIs.OBS.get_current_scene())
     // ou appel asynchrone, on lance l'appel et on donne une fonction en callback
     // APIs.Twitch.on_channel_redemption_add(console.log)
+
+    await commands.initialize(APIs,_config)
+    commands.trigger("test",{
+        "param_test":true
+    })
 }
 
 async function examples() {

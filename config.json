@@ -6,6 +6,10 @@
     "Twitch": {
         "active": true,
         "https_port": 8212,
-        "broadcaster_id": 39212301
+        "broadcaster_id": 39212301,
+        "channelname" : "guzimus"
+    },
+    "commands": {
+        "whitelist": []
     }
 }
