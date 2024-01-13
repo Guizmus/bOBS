@@ -1,14 +1,21 @@
-const _config = require('./config.json');
+const config = require('./config.json');
 
 const APIs = {
     "OBS": require('./lib/OBS/'),
     "Twitch": require('./lib/Twitch/')
 }
+const tools = {
+    "DB" : require('./lib/DB/'),
+    "Users" : require("./lib/users")
+}
 start()
 async function start()
 {
-    await APIs.OBS.initialize(_config);
-    await APIs.Twitch.initialize(_config);
+    await APIs.OBS.initialize(config);
+    await APIs.Twitch.initialize(config);
+    await tools.DB.initialize(config);
+    await tools.Users.initialize(config,tools.DB,APIs)
+    await commands.initialize(config,APIs,tools)
     on_load();
 }
 
@@ -22,10 +29,11 @@ async function on_load()
     // ou appel asynchrone, on lance l'appel et on donne une fonction en callback
     // APIs.Twitch.on_channel_redemption_add(console.log)
 
-    await commands.initialize(APIs,_config)
-    commands.trigger("test",{
-        "param_test":true
-    })
+    // 
+    // commands.trigger("test",{
+    //     "param_test":true
+    // })
+    console.log(await tools.Users.get("guzimus"))
 }
 
 async function examples() {
@@ -52,7 +60,8 @@ async function examples() {
     console.log(await APIs.OBS.set_source_filter_enabled("Lancement", "intro", true))
 
     // Twitch, appels asynchrones
-    APIs.Twitch.get_user("Nastr0", callback)
+    APIs.Twitch.get_user_by_login("Nastr0", callback)
+    APIs.Twitch.get_user_by_id(39212301, callback)
     APIs.Twitch.get_channel_informations(39212301, callback) // le broadcaster_id est issu de la clef id du get précédent
     APIs.Twitch.get_channel_followers(39212301, callback)
     APIs.Twitch.get_chatters(39212301, callback)
@@ -61,7 +70,8 @@ async function examples() {
     APIs.Twitch.get_clips(39212301, callback)
 
     // Twitch, appels synchrones
-    console.log(await APIs.Twitch.get_user("Nastr0"))
+    console.log(await APIs.Twitch.get_user_by_login("Nastr0"))
+    console.log(await APIs.Twitch.get_user_by_id(39212301))
     console.log(await APIs.Twitch.get_channel_informations(39212301))
     console.log(await APIs.Twitch.get_channel_followers(39212301))
     console.log(await APIs.Twitch.get_chatters(39212301))

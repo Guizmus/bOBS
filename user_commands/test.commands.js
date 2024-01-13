@@ -4,19 +4,22 @@ class Command_test extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
     triggers = {
         "channel points" : {
-            "ids" : [], //totest
-            "titles" : ["!gg"]
+            "ids" : [],
+            "titles" : []
         },
         "tchat" : {
-            "alias" : ["!gg","!test"],
+            "alias" : [],
             "all messages" : false
         },
-        "direct call" : false,
-        "follow" : true, //todo
-        "sub" : true //todo
+        "direct call" : true,
+        "follow" : true, //totest
+        "raid" : true, //totest
+        "poll end" : false
     }
     execute=function(trigger,params) {
         console.log("Executing test command",trigger,params)
+        console.log(this.APIs)
+        console.log(this.tools)
     }
 }
 

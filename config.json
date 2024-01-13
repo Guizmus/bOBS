@@ -1,6 +1,6 @@
 {
     "OBS": {
-        "active": true,
+        "active": false,
         "url": "ws://127.0.0.1:4455"
     },
     "Twitch": {
@@ -11,5 +11,13 @@
     },
     "commands": {
         "whitelist": []
+    },
+    "DB" : {
+        "active" : true,
+        "url" : "mongodb://localhost:27017/",
+        "name" : "bOBS"
+    },
+    "users" : {
+        "refresh_time" : 1800000
     }
 }
