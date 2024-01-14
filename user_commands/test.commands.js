@@ -1,4 +1,4 @@
-const commands = require(process.cwd()+"/lib/commands")
+const commands = require(process.cwd()+"/lib/Commands")
 
 class Command_test extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;

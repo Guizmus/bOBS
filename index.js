@@ -6,7 +6,8 @@ const APIs = {
 }
 const tools = {
     "DB" : require('./lib/DB/'),
-    "Users" : require("./lib/users")
+    "Users" : require("./lib/Users"),
+    "WebModules" : require("./lib/WebModules")
 }
 start()
 async function start()
@@ -15,11 +16,12 @@ async function start()
     await APIs.Twitch.initialize(config);
     await tools.DB.initialize(config);
     await tools.Users.initialize(config,tools.DB,APIs)
+    await tools.WebModules.initialize(config)
     await commands.initialize(config,APIs,tools)
     on_load();
 }
 
-const commands = require("./lib/commands/")
+const commands = require("./lib/Commands/")
 async function on_load()
 {
     console.log("On load !")
@@ -33,7 +35,18 @@ async function on_load()
     // commands.trigger("test",{
     //     "param_test":true
     // })
-    console.log(await tools.Users.get("guzimus"))
+    // console.log(await tools.Users.get("guzimus"))
+    const wm = new tools.WebModules.WebModule("Speciale_Dedi",{
+        "index_file" : "index.html",
+        "url_key" : "sd"
+    })
+    wm.on("messages",function(query) {
+        console.log(query);
+        return {
+            "response" : "prout"
+        }
+    })
+    console.log(wm.get_url([["test","1"]]))
 }
 
 async function examples() {

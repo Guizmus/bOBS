@@ -4,7 +4,7 @@
         "url": "ws://127.0.0.1:4455"
     },
     "Twitch": {
-        "active": true,
+        "active": false,
         "https_port": 8212,
         "broadcaster_id": 39212301,
         "channelname" : "guzimus"
@@ -19,5 +19,9 @@
     },
     "users" : {
         "refresh_time" : 1800000
+    },
+    "WebModules" : {
+        "active":true,
+        "http_port" : 8211
     }
 }
