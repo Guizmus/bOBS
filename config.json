@@ -1,7 +1,8 @@
 {
     "OBS": {
         "active": true,
-        "url": "ws://127.0.0.1:4455"
+        "url": "ws://127.0.0.1:4455",
+        "soundboard_scene" : "Soundboard"
     },
     "Twitch": {
         "active": true,
