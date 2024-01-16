@@ -18,8 +18,6 @@ class Command_test extends commands.Command {
     }
     execute=function(trigger,params) {
         console.log("Executing test command",trigger,params)
-        console.log(this.APIs)
-        console.log(this.tools)
     }
 }
 

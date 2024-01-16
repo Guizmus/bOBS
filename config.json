@@ -1,10 +1,10 @@
 {
     "OBS": {
-        "active": false,
+        "active": true,
         "url": "ws://127.0.0.1:4455"
     },
     "Twitch": {
-        "active": false,
+        "active": true,
         "https_port": 8212,
         "broadcaster_id": 39212301,
         "channelname" : "guzimus"

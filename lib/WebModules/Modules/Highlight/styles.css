@@ -1,0 +1,159 @@
+.msg_highlight {
+    position : absolute;
+    margin-bottom : 67px;
+    margin-right : 125px;
+    bottom:0px;
+}
+.msg_highlight .content {
+    transform: translatey(0px);
+    animation: highligh_appear_tempo 1.1s linear, float 5s ease-in-out infinite,gradient 15s ease infinite;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 15px;
+    color: #774f38;
+    background-color: #ece5ce;
+    background: linear-gradient(-45deg, #989dd8, #d2edb8, #a3e0a5, #ea9999);
+    background-size: 400% 400%;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    left : 100px;
+    box-shadow: 20px 20px #83af9b7d;
+    font-family: "Baloo 2", cursive;
+    width :300px;
+    z-index:2;
+}
+.msg_highlight .title {
+    color : red;
+    font-size: 17px;
+}
+
+.msg_highlight .content:after {
+    animation: highligh_appear_tempo 1.1s ease-in-out, float2 5s ease-in-out infinite;
+    content: ".";
+    font-weight: bold;
+    color : #ece5ce;
+    text-shadow: 22px 22px #83af9b7d;
+    text-align: left;
+    font-size: 55px;
+    width: 55px;
+    height: 11px;
+    line-height: 30px;
+    border-radius: 20px;
+    background-color: #ece5ce;
+    position: absolute;
+    display: block;
+    bottom: -30px;
+    left: 30px;
+    box-shadow: 22px 22px #83af9b7d;
+    z-index: 0;
+}
+.msg_highlight .avatar {
+    width : 150px;
+    height : 150px;
+    border-radius : 20px;
+    position : relative;
+    left: 3px;
+    top:3px;
+    z-index:1;
+    box-shadow: 20px 20px #83af9b7d;
+}
+@keyframes highligh_appear {
+    0% {
+        scale: 0;
+    }
+    80% {
+        scale: 1.15;
+    }
+    100% {
+        scale: 1;
+    }
+}
+@keyframes highligh_appear_tempo {
+    0% {
+        scale: 0 0;
+    }
+    30% {
+        scale: 0 0;
+    }
+    31% {
+        scale: 0 0.1;
+    }
+    65% {
+        scale: 1 0.1;
+    }
+    90% {
+        scale: 1 1.1;
+    }
+    100% {
+        scale: 1 1;
+    }
+}
+@keyframes float {
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-10px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
+}
+@keyframes float2 {
+    0% {
+        line-height: 30px;
+        transform: translatey(0px);
+    }
+    55% {
+        transform: translatey(-10px);
+    }
+    60% {
+        line-height: 10px;
+    }
+    100% {
+        line-height: 30px;
+        transform: translatey(0px);
+    }
+}
+
+  
+  .neon_rotate_border {
+    width : 156px;
+    height : 156px;
+    border-radius : 20px;
+    --border-angle: 0turn;
+    background-image: conic-gradient(from var(--border-angle), rgba(34, 17, 51, 0), rgba(17, 17, 34, 0) 50%, rgba(34, 17, 51, 0)), conic-gradient(from var(--border-angle), transparent 20%, rgb(55, 169, 105), rgb(33, 88, 143));
+    background-size: calc(100% - 6px) calc(100% - 6px), cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    animation: highligh_appear 0.7s ease-in-out,bg-spin 3s linear infinite;
+    position : relative;
+    top : 47px;
+    z-index:1;
+  }
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+  
+  @property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

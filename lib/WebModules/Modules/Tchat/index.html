@@ -1,0 +1,59 @@
+<html>
+	<head>
+        <script type="text/javascript" src="/BaseModule/display/script.js"></script>
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<template id="message-basic">
+			<div class="message message-basic right" data-delete-date="0">
+				<img class="logo" src="" alt=""> <span class="username"></span>
+				<p></p>
+			</div>
+		</template>
+		<template id="message-persona5">
+			<div class="message message-persona5" data-delete-date="0">
+				<div class="background-white"></div>
+				<div class="background-black"></div>
+				<div class="text-area">
+					<img class="logo" src="" alt=""> <span class="username"></span>
+					<p></p>
+				</div>
+			</div>
+		</template>
+		<template id="message-ff7">
+			<div class="message message-ff7" data-delete-date="0">
+				<table><tbody><tr>
+					<td>
+						<img class="logo" src="" alt="">
+					</td>
+					<td class="text-area">
+						<span class="username"></span>
+						<p></p>
+					</td>
+				</tr></tbody></table>
+			</div>
+		</template>
+		<template id="message-nuage">
+			<div class="message" data-delete-date="0">
+				<img class="logo" src="" alt="">
+				<div class="title_plate">
+					<span class="username"></span>
+				</div>
+				<p class="text-area"></p>
+			</div>
+		</template>
+		<template id="announce">
+			<div class="message announce" data-delete-date="0">
+				<p class="text-area"></p>
+			</div>
+		</template>
+		
+		<div class="chat-container">
+			<div id="chat" class="chat">
+			</div>
+		</div>
+		<div id="chat-nuage"></div>		
+	
+		<script type="text/javascript" src="script.js" max_message_queue="30"/></script>
+	</body>
+</html>
