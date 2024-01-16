@@ -1,0 +1,106 @@
+{
+	"imprévisible" : {
+		"prompt" : "{prompt}, __medium*__ by __artists__ , [:anime line art:0.2], {1-4$$ and $$(fire:0.6)|Ice|Stone|Crystal|Smoke|Mist|Heat|Cold|Wind|Elemental|Water|Earth|Lightning|Metal|Shadow|Nature|Time|Space|Sound|Blood|Light|Dark|Poison|Frost|Thunder|Acid|Energy|Plasma|Hex|celestial|lunar|solar|divine|astral} themed, epic splash art , __movements__, , {abstract|surrealism|realistic}",
+		"negative" : "",
+		"model" : "sd_v1-5_vae.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"halloween" : {
+		"prompt" : "a painting of {prompt} on a halloween night, a digital painting by justin gerard, concept art by tyler edlin, concept art by senior environment artist, artstation, fantasy art, artstation hd, 2d game art, behance hd, rendered in unreal engine, volumetric lighting, unreal engine 5",
+		"negative" : "",
+		"model" : "sd_v1-5_vae.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"pate à modeler" : {
+		"prompt" : "High-res photograph of a claymation {prompt}, highly detailed sculpey diorama, realistic materials, sharp focus, 85 mm f1.8, LAIKA Studios",
+		"negative" : "",
+		"model" : "sd_v1-5_vae.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"low poly" : {
+		"prompt" : "Kawaii low poly {prompt}, 3d isometric render, white background, ambient occlusion, unity engine, centered",
+		"negative" : "",
+		"model" : "sd_v1-5_vae.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"psyché" : {
+		"prompt" : "Hypnotic illustration of a {prompt}, hypnotic psychedelic art by Dan Mumford, pop surrealism, dark glow neon paint, mystical, Behance",
+		"negative" : "",
+		"model" : "sd_v1-5_vae.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"android de guerre" : {
+		"prompt" : "raw photograph, realistic photo of (({prompt} in a hulking hydraulic biomechanical exoskeleton armored robot)), (detailed face), sunset, sweaty, post-apocalyptic, cyberpunk",
+		"negative" : "illustration, anime, plastic doll, plastic skin, (easynegative), monochrome, (low quality, worst quality:1.4), cg, 3d, render, draw, manga,(multiples views:1.2), wrong hands, deformed fingers, author signature, text, watermark,nsfw, clivage, boobs",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"cosplay raté" : {
+		"prompt" : "bad cosplay man as {prompt}",
+		"negative" : "",
+		"model" : "bad cosplay man.ckpt",
+		"vae" : "None",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"mosaique" : {
+		"prompt" : "high quality photo of {prompt} as mosaic art, mosaic tile, a mosaic fresque",
+		"negative" : "",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"monster hunter" : {
+		"prompt" : "raw photograph, realistic photo of {prompt} (wearing a bone armor, monster hunter armor made of bones, teeths, horns), (detailed face), sunset, sweaty, prehistoric, bones, wood, fire, lava",
+		"negative" : "illustration, anime, metal plating, plastic doll, plastic skin, (easynegative), monochrome, (low quality, worst quality:1.4), cg, 3d, render, draw, manga,(multiples views:1.2), wrong hands, deformed fingers, author signature, text, watermark,nsfw, clivage, boobs",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"avatar" : {
+		"prompt" : "close up head-shot, Macro High-res photograph of a claymation close up portrait {prompt} person, highly detailed sculpey diorama, realistic materials, sharp focus, 85 mm f1.8, LAIKA Studios, profile picture, cute",
+		"negative" : "text, watermark",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : false
+	},
+	"noel" : {
+		"prompt" : "a realistic picture of a {prompt} on a christmas night, snowfall, christmas decorations, tinsel garland, santa hat, professional photo, RAW, highest quality, close up picture",
+		"negative" : "blender, plastic",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : true
+	},
+	"pokemon" : {
+		"prompt" : "a drawing of a cute {prompt} creature, colorful, highest quality, high definition, featured on artstation, extra detail, intricate",
+		"negative" : "blur, fuzzy, blurr",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : false
+	},
+	"bonhomme de neige" : {
+		"prompt" : "a photograph of ({prompt}) made out of snow, highly detailed sculpture, sharp focus, 24-70mm f2.8 lens, snowy landscape, snowman building, snowballs, carrot nose, coal eyes, scarf, hat, sunglasses, stick arms, winter gear, children playing, RAW photograph",
+		"negative" : " <lora:easynegative:0.8>",
+		"model" : "realbiter_v10.safetensors",
+		"vae" : "realbiter_v10.ckpt",
+		"dimensions" : 512,
+		"visible" : true
+	}
+}

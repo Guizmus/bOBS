@@ -40,7 +40,7 @@ async function on_load()
     // })
     // console.log(await tools.Users.get("guzimus"))
     // console.log(APIs.Discord.post("1174463163002007572","test"))
-    console.log(await APIs.IADrawer.draw("a cat"))
+    console.log(await APIs.IADrawer.draw("a cat","mosaique"))
 }
 
 async function examples() {
