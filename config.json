@@ -10,6 +10,9 @@
         "broadcaster_id": 39212301,
         "channelname" : "guzimus"
     },
+    "Discord" : {
+        "active": true
+    },
     "commands": {
         "whitelist": []
     },

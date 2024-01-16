@@ -2,7 +2,8 @@ const config = require('./config.json');
 
 const APIs = {
     "OBS": require('./lib/OBS/'),
-    "Twitch": require('./lib/Twitch/')
+    "Twitch": require('./lib/Twitch/'),
+    "Discord": require('./lib/Discord/')
 }
 const tools = {
     "DB" : require('./lib/DB/'),
@@ -14,6 +15,7 @@ async function start()
 {
     await APIs.OBS.initialize(config);
     await APIs.Twitch.initialize(config);
+    await APIs.Discord.initialize(config);
     await tools.DB.initialize(config);
     await tools.Users.initialize(config,tools.DB,APIs)
     await tools.WebModules.initialize(config)
@@ -30,13 +32,12 @@ async function on_load()
     // console.log(await APIs.OBS.get_current_scene())
     // ou appel asynchrone, on lance l'appel et on donne une fonction en callback
     // APIs.Twitch.on_channel_redemption_add(console.log)
-
-    // 
-    // commands.trigger("highlight",{
-    //     "user":"Guzimus",
-    //     "message":"Prout"
+    // commands.trigger("raid",{
+    //     "raidingBroadcasterId":"39212301",
+    //     "viewers" : 10
     // })
     // console.log(await tools.Users.get("guzimus"))
+    console.log(APIs.Discord.post("1174463163002007572","test"))
 }
 
 async function examples() {
