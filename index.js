@@ -3,7 +3,8 @@ const config = require('./config.json');
 const APIs = {
     "OBS": require('./lib/OBS/'),
     "Twitch": require('./lib/Twitch/'),
-    "Discord": require('./lib/Discord/')
+    "Discord": require('./lib/Discord/'),
+    "IADrawer": require('./lib/IADrawer/')
 }
 const tools = {
     "DB" : require('./lib/DB/'),
@@ -16,6 +17,7 @@ async function start()
     await APIs.OBS.initialize(config);
     await APIs.Twitch.initialize(config);
     await APIs.Discord.initialize(config);
+    await APIs.IADrawer.initialize(config);
     await tools.DB.initialize(config);
     await tools.Users.initialize(config,tools.DB,APIs)
     await tools.WebModules.initialize(config)
@@ -37,7 +39,8 @@ async function on_load()
     //     "viewers" : 10
     // })
     // console.log(await tools.Users.get("guzimus"))
-    console.log(APIs.Discord.post("1174463163002007572","test"))
+    // console.log(APIs.Discord.post("1174463163002007572","test"))
+    console.log(await APIs.IADrawer.draw("a cat"))
 }
 
 async function examples() {

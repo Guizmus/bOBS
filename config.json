@@ -27,5 +27,10 @@
     "WebModules" : {
         "active":true,
         "http_port" : 8211
+    },
+    "IADrawer" : {
+        "active" : true,
+        "backend" : "A1111",
+        "url" : "http://127.0.0.1:7860/"
     }
 }
