@@ -6,8 +6,8 @@ const APIs = {
 }
 const tools = {
     "DB" : require('./lib/DB/'),
-    "Users" : require("./lib/Users"),
-    "WebModules" : require("./lib/WebModules")
+    "Users" : require('./lib/Users'),
+    "WebModules" : require('./lib/WebModules')
 }
 start()
 async function start()
@@ -32,21 +32,11 @@ async function on_load()
     // APIs.Twitch.on_channel_redemption_add(console.log)
 
     // 
-    // commands.trigger("test",{
-    //     "param_test":true
+    // commands.trigger("highlight",{
+    //     "user":"Guzimus",
+    //     "message":"Prout"
     // })
     // console.log(await tools.Users.get("guzimus"))
-    const wm = new tools.WebModules.WebModule("Speciale_Dedi",{
-        "index_file" : "index.html",
-        "url_key" : "sd"
-    })
-    wm.on("messages",function(query) {
-        console.log(query);
-        return {
-            "response" : "prout"
-        }
-    })
-    console.log(wm.get_url([["test","1"]]))
 }
 
 async function examples() {

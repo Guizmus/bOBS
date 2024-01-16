@@ -9,8 +9,6 @@ class Command_Tchat extends commands.Command {
         }
     }
     load=async function() {
-        if (!this.active) 
-            return false;
         const webmodule = new this.tools.WebModules.WebModule("Tchat",{"url_key" : "Tchat"})
         await this.APIs.OBS.set_input_settings("Tchat Guzibot constant", {"url":webmodule.get_url([["delete_mode","constant"]])})
         await this.APIs.OBS.set_input_settings("Tchat Guzibot temporaire", {"url":webmodule.get_url([["delete_mode","temporaire"]])})
@@ -21,8 +19,6 @@ class Command_Tchat extends commands.Command {
         })
     }
     execute=async function(trigger,params) {
-        if (!this.active) 
-            return false;
         var should_display = true;
         var message = {
             user : params.user.get(),
