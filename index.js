@@ -34,9 +34,9 @@ async function on_load()
     // console.log(await APIs.OBS.get_current_scene())
     // ou appel asynchrone, on lance l'appel et on donne une fonction en callback
     // APIs.Twitch.on_channel_redemption_add(console.log)
-    commands.trigger("avatar_reset",{
-        "userId":"39212301"
-    })
+    // commands.trigger("avatar_reset",{
+    //     "userId":"39212301"
+    // })
     // console.log(await tools.Users.get("guzimus"))
     // console.log(APIs.Discord.post("1174463163002007572","test"))
     // console.log(await APIs.IADrawer.draw("a cat","mosaique"))

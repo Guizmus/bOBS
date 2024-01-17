@@ -6,6 +6,7 @@ var webmodule;
 class Command_Avatar_reset extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
+    log=true;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -15,12 +16,19 @@ class Command_Avatar_reset extends commands.Command {
     }
     load=async function() {
         webmodule = new this.tools.WebModules.WebModule("Avatars",{"url_key" : "Avatars"})
-        console.log()
     }
     execute=async function(trigger,params) {
         const user = await this.tools.Users.get(false,params.userId)
         user.set("avatar",false)
         await user.save();
+    }
+    deck_extra = "Qui ?";
+    deck_params_format = async function (event) {
+        const user = await this.tools.Users.get(event.data.extra);
+        var params = {
+            "userId": user.get("id")
+        }
+        return params;
     }
 }
 
@@ -28,6 +36,7 @@ const Jimp = require('jimp')
 class Command_Avatar_evolve extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
+    log=true;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -58,11 +67,21 @@ class Command_Avatar_evolve extends commands.Command {
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
     }
+    deck_extra = "Qui ?";
+    deck_params_format = async function (event) {
+        const user = await this.tools.Users.get(event.data.extra);
+        var params = {
+            "userId": user.get("id"),
+            "userName" : user.get("display_name")
+        }
+        return params;
+    }
 }
 
 class Command_Avatar_redraw extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
+    log=true;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -78,6 +97,15 @@ class Command_Avatar_redraw extends commands.Command {
         const user = await this.tools.Users.get(false,params.userId)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
+    }
+    deck_extra = "Qui ?";
+    deck_params_format = async function (event) {
+        const user = await this.tools.Users.get(event.data.extra);
+        var params = {
+            "userId": user.get("id"),
+            "userName" : user.get("display_name")
+        }
+        return params;
     }
 }
 

@@ -5,10 +5,11 @@ class Command_Discord_link extends commands.Command {
     triggers = {
         "tchat" : {
             "alias" : ["!discord"]
-        }
+        },
+        "direct call" : true
     }
     execute=async function(trigger,params) {
-        this.APIs.Twitch.tchat_say(this.config.Twitch.broadcaster_id,"https://discord.gg/eaXnHyrsQh")
+        this.APIs.Twitch.tchat_say(this.config.Twitch.channelname,"https://discord.gg/eaXnHyrsQh")
     }
 }
 

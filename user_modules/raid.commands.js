@@ -21,6 +21,16 @@ class Command_Raid extends commands.Command {
             _this.APIs.OBS.set_source_filter_enabled("News","Show news",true)
         },6000)
     }
+    deck_extra = "Qui ? , Combien ?";
+    deck_params_format = async function (event) {
+        const params_split = event.data.extra.split(",")
+        const user = await this.tools.Users.get(params_split[0]);
+        var params = {
+            "raidingBroadcasterId": user.get("id"),
+            "viewers" : params_split[1]
+        }
+        return params;
+    }
 }
 
 exports.command_list = {

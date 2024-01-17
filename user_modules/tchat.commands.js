@@ -71,6 +71,21 @@ class Command_Tchat_change_template extends commands.Command {
         user.set("template",template)
         user.save()
     }
+    deck_extra = "Qui ?, Template ?";
+    deck_params_format = async function (event) {
+        const params_split = event.data.extra.split(",")
+        const user = await this.tools.Users.get(params_split[0]);
+        var rewardId = "";
+        Object.keys(this.IDs).forEach(function(id) {
+            if (this.IDs[id] == params_split[1])
+                rewardId = id;
+        })
+        var params = {
+            "userId": user.get("id"),
+            "rewardId" : rewardId
+        }
+        return params;
+    }
 }
 
 exports.command_list = {

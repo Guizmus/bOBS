@@ -12,7 +12,7 @@ class Command_test extends commands.Command {
             "alias" : [],
             "all messages" : false
         },
-        "direct call" : true,
+        "direct call" : false,
         "follow" : true, //totest
         "raid" : true, //totest
         "poll end" : false

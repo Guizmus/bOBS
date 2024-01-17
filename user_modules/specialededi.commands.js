@@ -34,6 +34,13 @@ class Command_SpecialeDedi extends commands.Command {
             return _this.APIs.OBS.set_source_filter_enabled("Discussion", "end specialdedi", true)
         },(clip.duration+10.5)*1000)
     }
+    deck_extra = "Qui ?";
+    deck_params_format = async function (event) {
+        var params = {
+            "content": "!sd "+event.data.extra
+        }
+        return params;
+    }
 }
 
 exports.command_list = {

@@ -13,6 +13,14 @@ class Command_Follow extends commands.Command {
         this.APIs.OBS.play_sound("SB-Follower",6)
         this.APIs.OBS.set_source_filter_enabled("Alertes", "new follower", true)
     }
+    deck_extra = "Qui ?";
+    deck_params_format = async function (event) {
+        const user = await this.tools.Users.get(event.data.extra);
+        var params = {
+            "userId": user.get("id")
+        }
+        return params;
+    }
 }
 
 exports.command_list = {
