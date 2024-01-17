@@ -1,4 +1,5 @@
 const commands = require(process.cwd()+"/lib/Commands")
+// base Tchat command. serves temporary and constant tchat
 class Command_Tchat extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
@@ -31,7 +32,27 @@ class Command_Tchat extends commands.Command {
             add_message(message)
     }
 }
+// subscription functions to handle message delivery to the tchat client
+var msg_queue = [];
+var last_msg_date = 0;
+function add_message(message) {
+    msg_queue.push(message)
+    if (msg_queue.length > 30)
+        msg_queue.shift();
+    last_msg_date = message.timestamp;
+}
+function get_messages(since=false) {
+    var msg_to_send = [];
+    if (since && (since <= last_msg_date)) {
+        msg_queue.forEach(function(message) {
+            if (since <= message.timestamp)
+                msg_to_send.push(message)
+        })
+    }
+    return since ? msg_to_send : msg_queue;
+}
 
+// channel reward for different tchat template
 class Command_Tchat_change_template extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
@@ -55,22 +76,4 @@ class Command_Tchat_change_template extends commands.Command {
 exports.command_list = {
     "tchat_module" : Command_Tchat,
     "tchat_template" : Command_Tchat_change_template
-}
-var msg_queue = [];
-var last_msg_date = 0;
-function add_message(message) {
-    msg_queue.push(message)
-    if (msg_queue.length > 30)
-        msg_queue.shift();
-    last_msg_date = message.timestamp;
-}
-function get_messages(since=false) {
-    var msg_to_send = [];
-    if (since && (since <= last_msg_date)) {
-        msg_queue.forEach(function(message) {
-            if (since <= message.timestamp)
-                msg_to_send.push(message)
-        })
-    }
-    return since ? msg_to_send : msg_queue;
 }
