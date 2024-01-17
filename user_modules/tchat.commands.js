@@ -18,6 +18,7 @@ class Command_Tchat extends commands.Command {
         webmodule.on("messages",function(call){
             return get_messages(call.data.since)
         })
+        console.log("Tchat modules connected in OBS")
     }
     execute=async function(trigger,params) {
         var should_display = true;

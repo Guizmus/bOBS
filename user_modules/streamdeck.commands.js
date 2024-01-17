@@ -5,7 +5,7 @@ var total_commands
 class Command_Streamdeck extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
-	log=true;
+	log=false;
     triggers = {
         "commands loaded" : true
     }
