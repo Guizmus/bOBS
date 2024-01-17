@@ -2,7 +2,7 @@ const commands = require(process.cwd()+"/lib/Commands")
 // base Tchat command. serves temporary and constant tchat
 class Command_Tchat extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     message_duration=15;
     triggers = {
         "tchat" : {
@@ -57,7 +57,7 @@ function get_messages(since=false) {
 // channel reward for different tchat template
 class Command_Tchat_change_template extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     IDs = {
         "376d738d-d30f-4309-a7f9-d236536cb2b9" : "ff7",
         "c87d796c-600f-4dc1-b1d3-c680ed8324f5" : "persona5"

@@ -2,7 +2,7 @@ const commands = require(process.cwd()+"/lib/Commands")
 var webmodule = false;
 class Command_SpecialeDedi extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     triggers = {
         "tchat" : {
             "alias" : ["!sd","!specialededi"]

@@ -5,7 +5,7 @@ var webmodule;
 // base Tchat command. serves temporary and constant tchat
 class Command_Avatar_reset extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     log=true;
     triggers = {
         "direct call" : true,
@@ -35,7 +35,7 @@ class Command_Avatar_reset extends commands.Command {
 const Jimp = require('jimp')
 class Command_Avatar_evolve extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     log=true;
     triggers = {
         "direct call" : true,
@@ -80,7 +80,7 @@ class Command_Avatar_evolve extends commands.Command {
 
 class Command_Avatar_redraw extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     log=true;
     triggers = {
         "direct call" : true,

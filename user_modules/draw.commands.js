@@ -5,7 +5,7 @@ const minimum_showing_time = 10
 const showing_time = 15
 class Command_Draw extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
-    active=true;
+    active=false;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -97,7 +97,7 @@ const poll_duration = 90;
 var next_poll_timeout = false;
 class Command_Style_Poll extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     triggers = {
         "tchat" : {
             "alias" : ["!styles","!style"]

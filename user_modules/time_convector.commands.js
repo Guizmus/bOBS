@@ -1,7 +1,7 @@
 const commands = require(process.cwd()+"/lib/Commands")
 class Command_Time_convector extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active=false;
     background_path="F:/twitch/ressources/DMC12-2/DMC12";
     background_quantity=11;
     triggers = {

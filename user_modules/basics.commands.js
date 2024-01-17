@@ -1,7 +1,7 @@
 const commands = require(process.cwd()+"/lib/Commands")
 class Command_Discord_link extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
-    active=true;
+    active=false;
     triggers = {
         "tchat" : {
             "alias" : ["!discord"]
@@ -15,7 +15,7 @@ class Command_Discord_link extends commands.Command {
 
 class Command_GG extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
-    active=true;
+    active=false;
     triggers = {
         "tchat" : {
             "alias" : ["!gg"]
@@ -28,7 +28,7 @@ class Command_GG extends commands.Command {
 
 class Command_Bonjour extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
-    active=true;
+    active=false;
     triggers = {
         "tchat" : {
             "alias" : ["!bonjour"]
