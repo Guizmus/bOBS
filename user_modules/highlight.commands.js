@@ -3,16 +3,13 @@ var webmodule = false;
 class Command_Highlight extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
     active=true;
+    popin="tchat_message_select";
     triggers = {
         "direct call" : true
     }
     execute=async function(trigger,params) {
         if (!webmodule) {
             webmodule = new this.tools.WebModules.WebModule("Highlight",{"url_key" : "Highlight"})
-        }
-        var params_split = params.content.trim().split(" ")
-        if (params_split.length<2) {
-            return false;
         }
         const user = await this.tools.Users.get(params.user)
         var webparams = [
@@ -28,6 +25,13 @@ class Command_Highlight extends commands.Command {
         setTimeout(function() {
             return _this.APIs.OBS.set_scene_item_enabled("Alertes", source_id, false)
         },60*1000)
+    }
+    deck_params_format=async function (call) {
+        var params = {
+            "user" : call.data.popin.message.user.login,
+            "message" : call.data.popin.message.content
+        }
+        return params
     }
 }
 

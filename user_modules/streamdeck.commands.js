@@ -10,6 +10,7 @@ class Command_Streamdeck extends commands.Command {
         "commands loaded" : true
     }
     load=async function() {
+		const _this = this;
         webmodule = new this.tools.WebModules.WebModule("StreamDeck",{"url_key" : "StreamDeck"})
         webmodule.on("button_list",function(call){
             return deck_commands
@@ -19,6 +20,16 @@ class Command_Streamdeck extends commands.Command {
 			const command = total_commands[trigger]
 			const params = !!command.deck_params_format ? await command.deck_params_format(call) : {}
 			return await commands.trigger(trigger,params);
+		})
+		webmodule.on("get_popin_data",function(call){
+			var res_content = {}
+			switch (call.data.type) {
+				case "message_list" : 
+					res_content = total_commands.tchat_module.get_messages(Date.now()-300000).slice(0,30)
+					break;
+				default : 
+			}
+			return res_content
 		})
     }
     execute=async function(trigger,commands) {

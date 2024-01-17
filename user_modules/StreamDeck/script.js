@@ -43,7 +43,8 @@ function handle_click (fn) {
 		var button = button_list[fn];
 		if (button.popin) {
 			popin(button.popin,button.extra,function(result_popin){
-				WebModule.query("handle_click/"+fn,{"popin":result_popin})
+				if (result_popin)
+					WebModule.query("handle_click/"+fn,{"popin":result_popin})
 			})
 		} else {
 			if (button.extra)
@@ -63,15 +64,14 @@ function popin(popin_type,popin_extra_data,callback) {
 	}
 	if (popin_type == "tchat_message_select") {
 		popin_datas.title = popin_extra_data;
-		WebModule.query("get_popin_data/"+fn,{"type":"message_list"},function(data) {
+		WebModule.query("get_popin_data",{"type":"message_list"},function(data) {
 			var content = document.createElement("ul");
 			if (data) {
 				data.forEach(function(message) {
-					console.log(message)
-					const msg_id = message.user+ ","+message.timestamp
+					const msg_id = message.user.id+ ","+message.timestamp
 					popin_datas.form_values[msg_id] = message;
 					var msg_li = document.createElement("li")
-					msg_li.innerHTML = "<li><input type='radio' id='"+msg_id+"' name='message' value='"+msg_id+"'><label for='"+msg_id+"'>De "+message.user+" : "+message.textMsg+"</label></li>"
+					msg_li.innerHTML = "<li><input type='radio' id='"+msg_id+"' name='message' value='"+msg_id+"'><label for='"+msg_id+"'>De "+message.user.display_name+" : "+message.content+"</label></li>"
 					content.appendChild(msg_li)
 				})
 			}
