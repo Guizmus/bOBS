@@ -2,7 +2,7 @@ const commands = require(process.cwd()+"/lib/Commands")
 var webmodule = false;
 class Command_Highlight extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
     popin="tchat_message_select";
     triggers = {
         "direct call" : true

@@ -3,9 +3,10 @@ var current_style = "imprévisible"
 const img_channel_id = "1174463163002007572"
 const minimum_showing_time = 10
 const showing_time = 15
+const autodraw_delay = 3*60
 class Command_Draw extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
-    active=false;
+    active=true;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -18,16 +19,21 @@ class Command_Draw extends commands.Command {
     }
     load=async function() {
         await load_showing_group(this)
+        refresh_autodraw_timer()
     }
     execute=async function(trigger,params) {
+        if (!this.config.IADrawer.active)
+            return false
         const prompt = (trigger.type == "tchat") ? params.content.trim().split(" ").splice(1).join(" ") : params.input;
         const username = (trigger.type == "tchat") ? params.user.get("display_name") : params.userDisplayName;
         if (!prompt) {
             this.APIs.Twitch.tchat_say(this.config.Twitch.channelname,"@"+username+" tu peux demander à l'IA de dessiner quelque chose dans le style actuel ("+current_style+") en tapant !draw suivi d'un sujet. Par exemple, '!draw a cat'. Pour de meilleurs résultats, mieux vaut lui parler en anglais.")
             return false;
         }
+        refresh_autodraw_timer()
         var ia_picture = await this.APIs.IADrawer.draw(prompt,current_style)
         this.APIs.Discord.post(img_channel_id,prompt + " ( par "+username+", style "+current_style+" )",ia_picture,prompt+".png")
+        commands.trigger("time convector",{"add_time":Math.floor(Math.random()*10)})
         add_to_show_queue({
             "filename" : ia_picture,
             "prompt" : prompt,
@@ -46,6 +52,19 @@ class Command_Draw extends commands.Command {
     }
 }
 
+var autodraw_timer = false;
+const autodraw_subjects = ["Dog","Cow","Cat","Horse","Donkey","Tiger","Lion","Panther","Leopard","Cheetah","Bear","Elephant","Polar bear","Turtle","Tortoise","Crocodile","Rabbit","Porcupine","Hare","Hen","Pigeon","Albatross","Crow","Fish","Dolphin","Frog","Whale","Alligator","Eagle","Flying squirrel","Ostrich","Fox","Goat","Jackal","Emu","Armadillo","Eel","Goose","Arctic fox","Wolf","Beagle","Gorilla","Chimpanzee","Monkey","Beaver","Orangutan","Antelope","Bat","Badger","Giraffe","Hermit Crab","Giant Panda","Hamster","Cobra","Hammerhead shark","Camel","Hawk","Deer","Chameleon","Hippopotamus","Jaguar","Chihuahua","King Cobra","Ibex","Lizard","Koala","Kangaroo","Iguana","Llama","Chinchillas","Dodo","Jellyfish","Rhinoceros","Hedgehog","Zebra","Possum","Wombat","Bison","Bull","Buffalo","Sheep","Meerkat","Mouse","Otter","Sloth","Owl","Vulture","Flamingo","Racoon","Mole","Duck","Swan","Lynx","Monitor lizard","Elk","Boar","Lemur","Mule","Baboon","Mammoth","Blue whale","Rat","Snake","Peacock","a man","a woman","a boy","a girl","me","Miley Cyrus","Kim Kardashian","Kayne West","Margaret Thatcher","George Washington","Ghandi","Nelson Mandela","Christopher Columbus","Justin Beiber","Lady Gaga","Katy Perry","Justin Timberlake","Jay Leno","David Letterman","Elle McPherson","Jennifer Aniston","Donald Duck","Pluto","Goofy","Johnny Depp","Brittney Spears","Paris Hilton","Hugh Jackman","Vladimir Putin","Daniel Radcliffe","David Beckham","Madonna","Eminem","Matt Damon","Jack Nicholson","Kevin Spacey","Kylie Minogue","Roger Federer","Andrew Murray","Serena Williams","Brad Pitt","Mickey Mouse","Simon Cowell","Ludwig Beethoven","Warren Buffett","Lewis Carroll","Queen Elizabeth II","Charles Darwin","Albert Einstein","Henry Ford","Bill Gates","Steve Jobs","Vincent van Gogh","Thomas Jefferson","Stanley Kubrik","Charles Lindbergh","Courtney Love","Kurt Cobain","Michelangelo","Amadeus Mozart","Sir Isaac Newton","George Orwell","Andy Warhol","Orson Welles","Leonardo Da Vinci","Walt Disney","Abraham Lincoln","William Shakespeare","Martin Luther King","John F Kennedy","Princess Diana","Mother Teresa","Thomas Edison","Benjamin Franklin","Neil Armstrong","Napoleon","Elvis Presley","Mohammad Ali","Marilyn Monroe","Pablo Picasso","Charles Dickens","Cleopatra","John Lennon","Michael Jordan","Mark Twain","Nicole Kidman","Barack Obama","Robert Pattison","Hugh Heffner","KJ Rowling","Bill Clinton","Elizabeth Taylor","Tom Cruise","Clint Eastwood","Alfred Hitchcock","Stephen Hawking","Tom Hanks","Oprah Winfrey","Beyonce","Hilary Clinton","Dr Suess","Ray Charles","Sean Connery","Julia Roberts","Pele","Meryl Streep","Helen Keller","Robin Williams","Steve Martin","Fred Astaire","Whoopi Goldberg","Jane Austen","Bob Hope","Jessica Simpson","Frank Lloyd Wright","Pamela Anderson","Susan Boyle","Mae West","Snoopy","Jim Carrey","Michael J Fox","Betty Boop","Bugs Bunny","Charlie Brown","Daffy Duck","Dennis the Menace","Donald Duck","Garfield","Mickey Mouse","Olive Oyl","Popeye","Powerpuff Girls","Road Runner","Scooby-Doo","Snoopy","Teenage Mutant Ninja Turtles","The Simpsons","Tom and Jerry","Yogi Bear"];
+function refresh_autodraw_timer () {
+    if (autodraw_timer)
+        clearTimeout(autodraw_timer)
+    autodraw_timer = setTimeout(function() {
+        commands.trigger("draw",{
+            "input" : autodraw_subjects[Math.floor(Math.random()*autodraw_subjects.length)],
+            "userDisplayName" : "Une IA qui s'ennuie"
+        })
+    },autodraw_delay*1000)
+}
+
 var is_showing = false;
 var drawings_to_show = []
 var picture_showing_timeout;
@@ -53,6 +72,7 @@ var started_showing_this_picture_on;
 var showing_group_itemID;
 async function load_showing_group (_this) {
     showing_group_itemID = await _this.APIs.OBS.get_scene_item_id("Guizbot(draw)", "Drawing display")
+    _this.APIs.OBS.set_scene_item_enabled("Guizbot(draw)", showing_group_itemID, false)
 }
 function add_to_show_queue (params,_this) {
     drawings_to_show.push(params)
@@ -97,7 +117,7 @@ const poll_duration = 90;
 var next_poll_timeout = false;
 class Command_Style_Poll extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
     triggers = {
         "tchat" : {
             "alias" : ["!styles","!style"]
@@ -146,7 +166,7 @@ class Command_Style_Poll extends commands.Command {
             this.APIs.IADrawer.styles().sort(() => 0.5 - Math.random()).slice(0,5).forEach(function(s){
                 choices.push({"title":s})
             })
-            if (await this.APIs.Twitch.create_poll(this.config.Twitch.broadcaster_id,"Quel style d'images pour l'IA?",choices)){
+            if (await this.APIs.Twitch.create_poll(this.config.Twitch.broadcaster_id,"Quel style d'images pour l'IA?",choices,false,100,poll_duration)){
                 this.APIs.Twitch.tchat_say(this.config.Twitch.channelname,"C'est parti pour un nouveau style ! Votez pour choisir à quoi ressembleront les images à venir !")
                 current_style_poll = true;
                 if (next_poll_timeout){

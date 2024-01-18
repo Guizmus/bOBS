@@ -4,7 +4,7 @@ var deck_commands
 var total_commands
 class Command_Streamdeck extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
 	log=false;
     triggers = {
         "commands loaded" : true
@@ -16,7 +16,7 @@ class Command_Streamdeck extends commands.Command {
             return deck_commands
         })
 		webmodule.on("handle_click",async function(call) {
-			const trigger = call.path
+			const trigger = decodeURI(call.path)
 			const command = total_commands[trigger]
 			const params = !!command.deck_params_format ? await command.deck_params_format(call) : {}
 			return await commands.trigger(trigger,params);

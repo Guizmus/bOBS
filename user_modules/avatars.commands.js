@@ -5,8 +5,8 @@ var webmodule;
 // base Tchat command. serves temporary and constant tchat
 class Command_Avatar_reset extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
-    log=true;
+    active=true;
+    log=false;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -19,7 +19,11 @@ class Command_Avatar_reset extends commands.Command {
     }
     execute=async function(trigger,params) {
         const user = await this.tools.Users.get(false,params.userId)
-        user.set("avatar",false)
+        const new_avatar = await download_image(user.get("profile_image_url"),512)
+        const target_file_path = avatar_path(params.userId)
+        fs.renameSync(new_avatar,target_file_path)
+        this.tools.WebModules.unload_file(target_file_path)
+        user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
     }
     deck_extra = "Qui ?";
@@ -35,8 +39,8 @@ class Command_Avatar_reset extends commands.Command {
 const Jimp = require('jimp')
 class Command_Avatar_evolve extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
-    log=true;
+    active=true;
+    log=false;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -49,12 +53,7 @@ class Command_Avatar_evolve extends commands.Command {
         const target_file_path = avatar_path(params.userId)
         var current_avatar = target_file_path;
         if (!user.get("avatar")) {
-            current_avatar = await download_image(user.get("profile_image_url"))
-            Jimp.read(current_avatar, function(err, image) {
-                image
-                    .resize(512, 512)
-                    .write(current_avatar);
-            })
+            current_avatar = await download_image(user.get("profile_image_url"),512)
         }
         var new_avatar = await this.APIs.IADrawer.draw(params.userName,avatar_style,current_avatar)
         evolve_avatar_animation({
@@ -80,8 +79,8 @@ class Command_Avatar_evolve extends commands.Command {
 
 class Command_Avatar_redraw extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
-    log=true;
+    active=true;
+    log=false;
     triggers = {
         "direct call" : true,
         "channel points" : {
@@ -113,12 +112,18 @@ function avatar_path(userId) {
     return process.cwd()+"/user_modules/Avatars/"+userId+".png"
 }
 const request = require("request")
-function download_image(image_url) {
+function download_image(image_url,resize=false) {
     const destination = process.cwd()+"/temp/"+Date.now()+"_"+Math.floor(Math.random()*1000)+".png"
     return new Promise(function(resolve,reject) {
         request(image_url)
         .pipe(fs.createWriteStream(destination))
         .on('close', () => {
+            if (resize)
+                Jimp.read(destination, function(err, image) {
+                    image
+                        .resize(resize, resize)
+                        .write(destination);
+                })
             resolve(destination)
         })
         .on('error', (err) => {

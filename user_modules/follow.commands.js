@@ -1,7 +1,7 @@
 const commands = require(process.cwd()+"/lib/Commands")
 class Command_Follow extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
     triggers = {
         "follow" : true,
         "direct call" : true

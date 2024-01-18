@@ -1,7 +1,7 @@
 const commands = require(process.cwd()+"/lib/Commands")
 class Command_Raid extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
     triggers = {
         "raid" : true,
         "direct call" : true
