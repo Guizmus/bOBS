@@ -1,0 +1,97 @@
+body {
+    margin : 0;
+}
+.scene {
+    width: 1920px;
+    height:1080px;
+    position: relative;
+    background:black;
+    background: url("scene_bus.png");
+    margin : 0;
+}
+  
+.bus {
+    position : absolute;
+    top : 100px;
+    left : 235px;
+}
+.bob {
+    position : absolute;
+}
+
+.viewer_container {
+    position : absolute;
+    top : 680px;
+    left : -665px;
+    transform: rotate(0deg) scale(1);
+    animation : walk_to_bus 4s linear;
+}
+@keyframes walk_to_bus {
+    0% {
+        top : 680px;
+        left : -665px;
+        transform: rotate(-4deg) scale(1);
+    }
+    10% {
+        transform: rotate(4deg) scale(0.95);
+    }
+    20% {
+        transform: rotate(-6deg) scale(0.9);
+    }
+    30% {
+        transform: rotate(3deg) scale(0.85);
+    }
+    40% {
+        transform: rotate(-8deg) scale(0.8);
+    }
+    50% {
+        transform: rotate(2deg) scale(0.75);
+    }
+    60% {
+        transform: rotate(-10deg) scale(0.7);
+    }
+    70% {
+        top: 200px;
+        transform: rotate(1deg) scale(0.65);
+    }
+    80% {
+        transform: rotate(-12deg) scale(0.6);
+    }
+    90% {
+        transform: rotate(0deg) scale(0.55);
+    }
+    100% {
+        top: 171px;
+        left: 725px;
+        transform: rotate(-14deg) scale(0.5);
+    }
+}
+.avatar {
+    position : relative;
+    top : 44px;
+    left : 195px;
+    mask-image: url("mask_bob_avatar_300.png");
+    mask-mode: alpha;
+    height: 300px;
+    width:300px;
+}
+.name {
+    position: relative;
+    font-size: 44px;
+    color: white;
+    filter: drop-shadow(2px 2px 18px black);
+    z-index: 3;
+    left: 239px;
+    text-align: center;
+    top: 48px;
+    width: 240px;
+    overflow:hidden;
+    transform: rotate(-2deg);
+}
+
+.foreground {
+    z-index: 2;
+}
+.middleground {
+    z-index: 1;
+}

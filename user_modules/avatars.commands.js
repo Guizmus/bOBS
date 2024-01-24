@@ -1,5 +1,6 @@
 const commands = require(process.cwd()+"/lib/Commands")
 const fs = require("fs")
+const img_channel_id = "1174463163002007572"
 const avatar_style = "imprévisible";
 var webmodule;
 // base Tchat command. serves temporary and constant tchat
@@ -18,20 +19,31 @@ class Command_Avatar_reset extends commands.Command {
         webmodule = new this.tools.WebModules.WebModule("Avatars",{"url_key" : "Avatars"})
     }
     execute=async function(trigger,params) {
+        // console.log(trigger,params,params.userId)
         const user = await this.tools.Users.get(false,params.userId)
+        // console.log(user)
         const new_avatar = await download_image(user.get("profile_image_url"),512)
+        // console.log(new_avatar)
         const target_file_path = avatar_path(params.userId)
+        // console.log(target_file_path)
         fs.renameSync(new_avatar,target_file_path)
+        // console.log(target_file_path)
         this.tools.WebModules.unload_file(target_file_path)
+        // console.log(target_file_path)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
+        // console.log(user.get("avatar"))
         await user.save();
+        // console.log(user.get("avatar"))
+        return user.get("avatar")
     }
     deck_extra = "Qui ?";
     deck_params_format = async function (event) {
+        console.log("input event",event)
         const user = await this.tools.Users.get(event.data.extra);
         var params = {
             "userId": user.get("id")
         }
+        console.log("output params",params)
         return params;
     }
 }
@@ -62,9 +74,11 @@ class Command_Avatar_evolve extends commands.Command {
             "new_avatar" : new_avatar
         },this)
         fs.renameSync(new_avatar,target_file_path)
+        this.APIs.Discord.post(img_channel_id,"Nouvel avatar pour "+params.userName,target_file_path,params.userName+".png")
         this.tools.WebModules.unload_file(target_file_path)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
+        return user.get("avatar")
     }
     deck_extra = "Qui ?";
     deck_params_format = async function (event) {
@@ -92,10 +106,12 @@ class Command_Avatar_redraw extends commands.Command {
         var new_avatar_temp = await this.APIs.IADrawer.draw(params.userName,avatar_style)
         const target_file_path = avatar_path(params.userId)
         fs.renameSync(new_avatar_temp,target_file_path)
+        this.APIs.Discord.post(img_channel_id,"Nouvel avatar pour "+params.userName,target_file_path,params.userName+".png")
         this.tools.WebModules.unload_file(target_file_path)
         const user = await this.tools.Users.get(false,params.userId)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
+        return user.get("avatar")
     }
     deck_extra = "Qui ?";
     deck_params_format = async function (event) {

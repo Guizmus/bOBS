@@ -3,7 +3,7 @@ var current_style = "imprévisible"
 const img_channel_id = "1174463163002007572"
 const minimum_showing_time = 10
 const showing_time = 15
-const autodraw_delay = 3*60
+const autodraw_delay = 4*60
 class Command_Draw extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
     active=true;

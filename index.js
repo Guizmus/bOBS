@@ -40,6 +40,8 @@ async function on_load()
     // console.log(await tools.Users.get("guzimus"))
     // console.log(APIs.Discord.post("1174463163002007572","test"))
     // console.log(await APIs.IADrawer.draw("a cat","mosaique"))
+    // var webmodule = new tools.WebModules.WebModule("RaidBus",{"url_key" : "RaidBus"})
+    // console.log(webmodule.get_url())
 
 }
 

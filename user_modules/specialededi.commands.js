@@ -17,6 +17,11 @@ class Command_SpecialeDedi extends commands.Command {
         if (params_split.length<2) {
             return false;
         }
+        const original_scene = await this.APIs.OBS.get_current_scene()
+        if (original_scene == "Lancement")
+            return false;
+        if (original_scene != "Discussion")
+            await this.APIs.OBS.set_current_scene("Discussion")
         const user = await this.tools.Users.get(params_split[1])
         const clips = await this.APIs.Twitch.get_clips(user.get("id"))
         const clip = clips[Math.floor(Math.random()*clips.length)]
@@ -31,7 +36,11 @@ class Command_SpecialeDedi extends commands.Command {
         await this.APIs.OBS.set_source_filter_enabled("Discussion", "specialededi", true)
         const _this = this;
         setTimeout(function() {
-            return _this.APIs.OBS.set_source_filter_enabled("Discussion", "end specialdedi", true)
+            _this.APIs.OBS.set_source_filter_enabled("Discussion", "end specialdedi", true)
+            if (original_scene != "Discussion")
+                setTimeout(function() {
+                    _this.APIs.OBS.set_current_scene(original_scene)
+                },3000)
         },(clip.duration+10.5)*1000)
     }
     deck_extra = "Qui ?";
