@@ -7,8 +7,8 @@
     "Twitch": {
         "active": true,
         "https_port": 8212,
-        "broadcaster_id": 39212301,
-        "channelname" : "guzimus"
+        "broadcaster_id": 0,
+        "channelname" : ""
     },
     "Discord" : {
         "active": true
@@ -19,7 +19,7 @@
     "DB" : {
         "active" : true,
         "url" : "mongodb://localhost:27017/",
-        "name" : "bOBS"
+        "name" : ""
     },
     "users" : {
         "refresh_time" : 1800000
@@ -29,7 +29,7 @@
         "http_port" : 8211
     },
     "IADrawer" : {
-        "active" : true,
+        "active" : false,
         "backend" : "A1111",
         "url" : "http://127.0.0.1:7860/"
     }

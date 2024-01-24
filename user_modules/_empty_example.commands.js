@@ -22,13 +22,6 @@ class Command_template extends commands.Command {
     execute=async function(trigger,params) {
 
     }
-    deck_extra = "Deck asked text on click";
-    deck_params_format = async function (event) {
-        var params = { 
-            // prepare deck params for execute function
-        }
-        return params;
-    }
 }
 exports.command_list = {
     // "command name" : Command_template
