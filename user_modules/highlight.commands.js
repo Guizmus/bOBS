@@ -7,10 +7,10 @@ class Command_Highlight extends commands.Command {
     triggers = {
         "direct call" : true
     }
+    load=async function() {
+        webmodule = new this.tools.WebModules.WebModule("Highlight",{"url_key" : "Highlight"})
+    }
     execute=async function(trigger,params) {
-        if (!webmodule) {
-            webmodule = new this.tools.WebModules.WebModule("Highlight",{"url_key" : "Highlight"})
-        }
         const user = await this.tools.Users.get(params.user)
         var webparams = [
             ["title","Pensées de "+user.get("display_name")],
