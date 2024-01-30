@@ -49,11 +49,13 @@ class Command_Bonjour extends commands.Command {
     execute=async function(trigger,params) {
         switch (trigger.type) {
             case "all messages" : 
-                if (has_said_hi.includes(params.user.id)===false) {
-                    has_said_hi.push(params.user.id)
-                    queue_hello_animation(this,params.user)
-                    this.APIs.OBS.play_sound("SB-bonjour",5)
-                }
+            
+                if (!this.APIs.Twitch.is_bot(params.user.login))
+                    if (has_said_hi.includes(params.user.id)===false) {
+                        has_said_hi.push(params.user.id)
+                        queue_hello_animation(this,params.user)
+                        this.APIs.OBS.play_sound("SB-bonjour",5)
+                    }
                 break;
             case "tchat" : 
             case "channel points" : 

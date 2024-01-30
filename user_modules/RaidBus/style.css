@@ -5,8 +5,7 @@ body {
     width: 1920px;
     height:1080px;
     position: relative;
-    background:black;
-    background: url("scene_bus.png");
+    background:transparent;
     margin : 0;
 }
   
@@ -70,8 +69,8 @@ body {
     position : relative;
     top : 44px;
     left : 195px;
-    mask-image: url("mask_bob_avatar_300.png");
     mask-mode: alpha;
+    mask-image: url("avatar_mask.png") !important;
     height: 300px;
     width:300px;
 }
@@ -94,4 +93,31 @@ body {
 }
 .middleground {
     z-index: 1;
+}
+#streamer_name {
+    position: absolute;
+    font-size: 44px;
+    left: 1500px;
+    top: 399px;
+    width: 300px;
+    text-align: center;
+    color: white;
+    filter: drop-shadow(2px 2px 18px black);
+}
+#streamer_avatar {
+    position: absolute;
+    left: 1500px;
+    top: 450px;
+    border-radius: 20px;
+    border: 2px white dashed;
+}
+#game_name {
+    position: absolute;
+    font-size: 44px;
+    left: 1500px;
+    top: 754px;
+    width: 300px;
+    text-align: center;
+    color: white;
+    filter: drop-shadow(2px 2px 18px black);
 }

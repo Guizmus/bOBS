@@ -3,7 +3,7 @@ var current_style = "imprévisible"
 const img_channel_id = "1174463163002007572"
 const minimum_showing_time = 10
 const showing_time = 15
-const autodraw_delay = 4*60
+const autodraw_delay = 5*60
 class Command_Draw extends commands.Command {
     userlevel_required = commands.USERLEVEL_NONE;
     active=true;
@@ -33,7 +33,7 @@ class Command_Draw extends commands.Command {
         refresh_autodraw_timer()
         var ia_picture = await this.APIs.IADrawer.draw(prompt,current_style)
         this.APIs.Discord.post(img_channel_id,prompt + " ( par "+username+", style "+current_style+" )",ia_picture,prompt+".png")
-        commands.trigger("time convector",{"add_time":Math.floor(Math.random()*10)})
+        commands.trigger("time convector",{"add_time":Math.floor(Math.random()*6)})
         add_to_show_queue({
             "filename" : ia_picture,
             "prompt" : prompt,

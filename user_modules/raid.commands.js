@@ -34,7 +34,7 @@ class Command_Raid extends commands.Command {
 }
 class Command_Send_Raid extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=false;
+    active=true;
     triggers = {
         "direct call" : true,
         "tchat" : {
@@ -44,7 +44,9 @@ class Command_Send_Raid extends commands.Command {
     load = async function () {
         const _this = this
         const webmodule = new this.tools.WebModules.WebModule("RaidBus",{"url_key" : "RaidBus"})
-        webmodule.on("viewers",async function(call){
+        webmodule.on("getData",async function(call){
+            if ((!_this.target_streamer) || (!_this.target_game_name))
+                return false;
             const chatters = await _this.APIs.Twitch.get_chatters(_this.config.Twitch.broadcaster_id)
             var ids_to_load = []
             chatters.forEach(function(v,k) {
@@ -52,9 +54,16 @@ class Command_Send_Raid extends commands.Command {
                     ids_to_load.push(v.user_id)
             })
             const real_chatters = await _this.tools.Users.get_list([],ids_to_load)
-            var returns = []
+            var returns = {
+                "viewers" : [],
+                "target" : {
+                    "streamer_name" : _this.target_streamer.get("display_name"),
+                    "streamer_avatar" : _this.target_streamer.get("profile_image_url"),
+                    "game_name" : _this.target_game_name
+                }
+            }
             real_chatters.forEach(function(v,k) {
-                returns.push({
+                returns.viewers.push({
                     "name" : v.get("display_name"),
                     "avatar" : v.get("avatar") ? v.get("avatar") : v.get("profile_image_url")
                 })
@@ -67,9 +76,10 @@ class Command_Send_Raid extends commands.Command {
         if (params_split.length<2) {
             return false;
         }
-        const dest_user = await this.tools.Users.get(params_split[1])
-        if (await this.APIs.Twitch.start_a_raid(this.config.Twitch.broadcaster_id,dest_user.id)) {
-            
+        this.target_streamer = await this.tools.Users.get(params_split[1])
+        if (await this.APIs.Twitch.start_a_raid(this.config.Twitch.broadcaster_id,this.target_streamer.id)) {
+            this.target_game_name = (await this.APIs.Twitch.get_channel_informations(this.target_streamer.id)).game_name
+            await this.APIs.OBS.set_current_scene("Raid")
         } else {
             console.log("Le raid n'a pas pu se créer.")
         }

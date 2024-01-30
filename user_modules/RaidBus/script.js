@@ -1,6 +1,9 @@
 _e = {
     "scene" : document.querySelector(".scene"),
-    "template_viewer" : document.querySelector("#template_viewer")
+    "template_viewer" : document.querySelector("#template_viewer"),
+    "streamer_name" : document.querySelector("#streamer_name"),
+    "streamer_avatar" : document.querySelector("#streamer_avatar"),
+    "game_name" : document.querySelector("#game_name")
 }
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -25,7 +28,12 @@ function spawn_viewer () {
     },2000)
 }
 var viewers_to_show = []
-WebModule.query("viewers",{},function(viewers) {
-    viewers_to_show = viewers
-    spawn_viewer()
+WebModule.query("getData",{},function(data) {
+    viewers_to_show = data.viewers
+    _e.streamer_name.innerHTML = data.target.streamer_name
+    _e.streamer_avatar.setAttribute("src",data.target.streamer_avatar)
+    _e.game_name.innerHTML = data.target.game_name
+    setTimeout(()=>{
+        spawn_viewer()
+    },5000)
 })
