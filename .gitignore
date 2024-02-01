@@ -2,4 +2,5 @@ node_modules
 temp
 .vscode
 .env
+config.json
 user_modules/Avatars

@@ -9,15 +9,15 @@ Un streamdeck, un overlay de tchat, ou encore une logique d'édition d'avatars p
 
 Le bot n'a été testé que sous windows pour l'instant. Tout feedback dans d'autre environnement est apprécié.
 
+Au sein d'un nouveau dossier, ouvrez une invite de commande et clonez le repository
 ``git clone https://github.com/Guizmus/bOBS.git``
 
-[NodeJS](https://nodejs.org/en/download) est nécessaire aux fonctions basiques du bot, et doit être disponible dans l'environnement.
+[NodeJS](https://nodejs.org/en/download) est nécessaire aux fonctions basiques du bot, et doit être disponible dans l'environnement. Installez le afin de poursuivre.
 
-Il convient désormais d'installer les dépendances de code :
-
+Une fois cela fait, vous pouvez installer les dépendances de code du bot :
 ``npm install .``
 
-Le bot est désormais fonctionnel. Vous pouvez configurer les modules voulus dans config.json.
+Le bot est désormais "fonctionnel". Vous pouvez configurer les modules voulus dans config.json.
 Afin d'utiliser les différents modules, il convient cependant de valider les prérequis suivants :
 
 ## Module Twitch

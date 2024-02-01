@@ -1,23 +1,23 @@
 {
     "OBS": {
-        "active": true,
+        "active": false,
         "url": "ws://127.0.0.1:4455",
         "soundboard_scene": "Soundboard"
     },
     "Twitch": {
-        "active": true,
-        "https_port": 8212,
-        "broadcaster_id": 39212301,
-        "channelname": "guzimus"
+        "active": false,
+        "https_port": "the port you choose to open to receive notifications from twitch",
+        "broadcaster_id": "the ID of your twitch user (int)",
+        "channelname": "the name of your twitch channel"
     },
     "Discord": {
-        "active": true
+        "active": false
     },
     "commands": {
-        "whitelist": []
+        "whitelist": ["a list of users that can run commands with elevated priviledges"]
     },
     "DB": {
-        "active": true,
+        "active": false,
         "url": "mongodb://localhost:27017/",
         "name": "bOBS"
     },
@@ -25,11 +25,11 @@
         "refresh_time": 1800000
     },
     "WebModules": {
-        "active": true,
-        "http_port": 8211
+        "active": false,
+        "http_port": "a free port to use for webmodules. no need to open the port, it's local"
     },
     "IADrawer": {
-        "active": true,
+        "active": false,
         "backend": "A1111",
         "url": "http://127.0.0.1:7860/"
     }
