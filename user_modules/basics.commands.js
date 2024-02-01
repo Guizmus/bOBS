@@ -98,9 +98,56 @@ async function play_hello_animation(_this,user) {
         }
     },5000)
 }
+const first_label = "First !";
+class Command_First extends commands.Command {
+    active=true;
+    log=false;
+    triggers = {
+        "channel points" : {
+            "titles" : [first_label]
+        }
+    }
+    reward=false;
+    first_alert_id=false;
+    load=async function () {
+        const _this = this;
+        this.first_alert_id = await this.APIs.OBS.get_scene_item_id("Alertes", "alerte First")
+        this.APIs.OBS.set_scene_item_enabled("Alertes", this.first_alert_id, false)
+        const current_channel_state = await this.APIs.Twitch.get_stream(this.config.Twitch.broadcaster_id)
+        if (!(current_channel_state && (current_channel_state.type=="live"))) {
+            const current_rewards = await this.APIs.Twitch.get_reward_list(this.config.Twitch.broadcaster_id,true)
+            if (current_rewards && current_rewards.length) {
+                current_rewards.forEach(function(reward) {
+                    if (reward.title == first_label) 
+                        _this.reward = reward
+                })
+            }
+            if (!this.reward){
+                const new_reward = await this.APIs.Twitch.create_reward(this.config.Twitch.broadcaster_id, first_label, 1)
+                this.reward = new_reward
+            }
+        }
+    }
+    execute=async function(trigger,params) {
+        const _this = this;
+        await this.APIs.Twitch.delete_reward(this.config.Twitch.broadcaster_id, this.reward.id)
+        const user = await this.tools.Users.get(false,params.userId)
+        var current_avatar = user.get("avatar")
+        if (!current_avatar)
+            current_avatar = await commands.trigger("avatar_reset",{
+                "userId":params.userId
+            })
+        await _this.APIs.OBS.set_input_settings("first avatar", {"file":current_avatar})
+        await this.APIs.OBS.set_scene_item_enabled("Alertes", this.first_alert_id, true)
+        setTimeout(function() {
+            _this.APIs.OBS.set_scene_item_enabled("Alertes", _this.first_alert_id, false)
+        },14000)
+    }
+}
 
 exports.command_list = {
     "discord_link" : Command_Discord_link,
     "gg" : Command_GG,
-    "bonjour" : Command_Bonjour
+    "bonjour" : Command_Bonjour,
+    "first" : Command_First
 }

@@ -23,13 +23,6 @@ class Command_Avatar_reset extends commands.Command {
         const new_avatar = await download_image(user.get("profile_image_url"),512)
         const target_file_path = avatar_path(params.userId)
         fs.renameSync(new_avatar,target_file_path)
-        commands.trigger("draw",{
-            "onlyshow":true,
-            "filename" : target_file_path,
-            "prompt" : params.userName+" réinitialise son avatar",
-            "username" : params.userName,
-            "style" : ""
-        })
         this.tools.WebModules.unload_file(target_file_path)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
         await user.save();
