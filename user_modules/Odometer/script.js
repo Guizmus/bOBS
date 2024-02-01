@@ -1,15 +1,15 @@
 const _e = {
-    "odometer" : document.getElementById('odometer')
+    "odometer": document.getElementById('odometer')
 }
 const queryParams = new URLSearchParams(window.location.search);
 var current_time = 0;
-setInterval(function() {
-	WebModule.query("update_time",false,function(time) {
+setInterval(function () {
+    WebModule.query("update_time", false, function (time) {
         current_time = time;
-        led[0].setValue(Math.floor(current_time/10))
-        led[1].setValue(current_time%10)
-	});
-},5000);
+        led[0].setValue(Math.floor(current_time / 10))
+        led[1].setValue(current_time % 10)
+    });
+}, 5000);
 
 const led = [
     new StudioLed({

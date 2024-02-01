@@ -6,7 +6,7 @@
   color: #FFFFFF;
   cursor: pointer;
   flex-shrink: 0;
-  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 500;
   height: 4rem;
@@ -31,15 +31,17 @@
 }
 
 .main_fieldset {
-  margin : 0;
-  padding : 2px;
-  display:inline-block;
-  width : 48%;
+  margin: 0;
+  padding: 2px;
+  display: inline-block;
+  width: 48%;
 }
+
 ul {
-  padding : 0;
-  margin : 0;
+  padding: 0;
+  margin: 0;
 }
+
 #deck button {
-  margin : 1px;
+  margin: 1px;
 }

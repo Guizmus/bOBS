@@ -1,30 +1,30 @@
-const commands = require(process.cwd()+"/lib/Commands")
+const commands = require(process.cwd() + "/lib/Commands")
 class Command_template extends commands.Command {
-    active=false;
-    log=false;
+    active = false;
+    log = false;
     triggers = {
-        "channel points" : {
-            "ids" : [],
-            "titles" : []
+        "channel points": {
+            "ids": [],
+            "titles": []
         },
-        "tchat" : {
-            "alias" : [],
-            "all messages" : false
+        "tchat": {
+            "alias": [],
+            "all messages": false
         },
-        "direct call" : false,
-        "follow" : false,
-        "raid" : false,
-        "poll end" : false
+        "direct call": false,
+        "follow": false,
+        "raid": false,
+        "poll end": false
     }
-    load=async function () {
+    load = async function () {
 
     }
-    execute=async function(trigger,params) {
+    execute = async function (trigger, params) {
 
     }
     deck_extra = "Deck asked text on click";
     deck_params_format = async function (event) {
-        var params = { 
+        var params = {
             // prepare deck params for execute function
         }
         return params;

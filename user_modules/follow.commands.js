@@ -1,16 +1,16 @@
-const commands = require(process.cwd()+"/lib/Commands")
+const commands = require(process.cwd() + "/lib/Commands")
 class Command_Follow extends commands.Command {
     userlevel_required = commands.USERLEVEL_ADMIN;
-    active=true;
+    active = true;
     triggers = {
-        "follow" : true,
-        "direct call" : true
+        "follow": true,
+        "direct call": true
     }
-    execute=async function(trigger,params) {
-        const user = await this.tools.Users.get(false,params.userId);
-        this.APIs.OBS.set_input_settings("Follower-name", {"text":user.get("display_name")})
-        this.APIs.OBS.set_input_settings("follower", {"file":user.get("profile_image_url")})
-        this.APIs.OBS.play_sound("SB-Follower",6)
+    execute = async function (trigger, params) {
+        const user = await this.tools.Users.get(false, params.userId);
+        this.APIs.OBS.set_input_settings("Follower-name", { "text": user.get("display_name") })
+        this.APIs.OBS.set_input_settings("follower", { "file": user.get("profile_image_url") })
+        this.APIs.OBS.play_sound("SB-Follower", 6)
         this.APIs.OBS.set_source_filter_enabled("Alertes", "new follower", true)
     }
     deck_extra = "Qui ?";
@@ -24,5 +24,5 @@ class Command_Follow extends commands.Command {
 }
 
 exports.command_list = {
-    "follow" : Command_Follow
+    "follow": Command_Follow
 }
