@@ -41,6 +41,7 @@ class Command_Send_Raid extends commands.Command {
             "alias" : ["!raid"]
         },
     }
+    front_overlay;
     load = async function () {
         const _this = this
         const webmodule = new this.tools.WebModules.WebModule("RaidBus",{"url_key" : "RaidBus"})
@@ -50,7 +51,7 @@ class Command_Send_Raid extends commands.Command {
             const chatters = await _this.APIs.Twitch.get_chatters(_this.config.Twitch.broadcaster_id)
             var ids_to_load = []
             chatters.forEach(function(v,k) {
-                // if (!_this.APIs.Twitch.is_bot(v.user_login))
+                if (!_this.APIs.Twitch.is_bot(v.user_login))
                     ids_to_load.push(v.user_id)
             })
             const real_chatters = await _this.tools.Users.get_list([],ids_to_load)
@@ -70,6 +71,8 @@ class Command_Send_Raid extends commands.Command {
             })
             return returns
         })
+        this.front_overlay = await _this.APIs.OBS.get_scene_item_id("Raid", "bus front")
+        this.APIs.OBS.set_scene_item_enabled("Raid", this.front_overlay, false)
     }
     execute=async function(trigger,params) {
         var params_split = params.content.trim().split(" ")
@@ -79,7 +82,10 @@ class Command_Send_Raid extends commands.Command {
         this.target_streamer = await this.tools.Users.get(params_split[1])
         if (await this.APIs.Twitch.start_a_raid(this.config.Twitch.broadcaster_id,this.target_streamer.id)) {
             this.target_game_name = (await this.APIs.Twitch.get_channel_informations(this.target_streamer.id)).game_name
+            await this.APIs.OBS.set_scene_item_enabled("Raid", this.front_overlay, false)
             await this.APIs.OBS.set_current_scene("Raid")
+            await wait(2)
+            this.APIs.OBS.set_scene_item_enabled("Raid", this.front_overlay, true)
         } else {
             console.log("Le raid n'a pas pu se créer.")
         }
@@ -91,6 +97,16 @@ class Command_Send_Raid extends commands.Command {
         }
         return params;
     }
+}
+/**
+ * attends le temps indiqué
+ * @param {float} duration durée d'attente (en secondes)
+ */
+async function wait (duration) {
+    await new Promise(function(resolve,reject){
+        setTimeout(resolve,duration*1000)
+    })
+    return true;
 }
 
 exports.command_list = {

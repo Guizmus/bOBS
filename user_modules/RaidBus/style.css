@@ -11,8 +11,19 @@ body {
   
 .bus {
     position : absolute;
-    top : 100px;
-    left : 235px;
+    top : 300px;
+    left : -1108px;
+    animation : slide_in 2s ease-out forwards;
+}
+@keyframes slide_in {
+    0% {
+        top : 300px;
+        left : -1108px;
+    }
+    100% {
+        top : 100px;
+        left : 235px;
+    }
 }
 .bob {
     position : absolute;
@@ -103,12 +114,14 @@ body {
     text-align: center;
     color: white;
     filter: drop-shadow(2px 2px 18px black);
+    background : black;
+    border: 2px white dashed;
+    border-radius: 20px 20px 0px 0px;
 }
 #streamer_avatar {
     position: absolute;
     left: 1500px;
     top: 450px;
-    border-radius: 20px;
     border: 2px white dashed;
 }
 #game_name {
@@ -120,4 +133,7 @@ body {
     text-align: center;
     color: white;
     filter: drop-shadow(2px 2px 18px black);
+    background : black;
+    border: 2px white dashed;
+    border-radius: 0px 0px 20px 20px;
 }

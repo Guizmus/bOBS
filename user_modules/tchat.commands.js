@@ -62,11 +62,12 @@ class Command_Tchat_change_template extends commands.Command {
     active=true;
     IDs = {
         "376d738d-d30f-4309-a7f9-d236536cb2b9" : "ff7",
-        "c87d796c-600f-4dc1-b1d3-c680ed8324f5" : "persona5"
+        "c87d796c-600f-4dc1-b1d3-c680ed8324f5" : "persona5",
+        "f66accc0-d455-498a-b06f-70df1bce49df" : false
     }
     triggers = {
         "channel points" : {
-            "ids" : ["c87d796c-600f-4dc1-b1d3-c680ed8324f5","376d738d-d30f-4309-a7f9-d236536cb2b9"]
+            "ids" : ["c87d796c-600f-4dc1-b1d3-c680ed8324f5","376d738d-d30f-4309-a7f9-d236536cb2b9","f66accc0-d455-498a-b06f-70df1bce49df"]
         },
     }
     execute=async function(trigger,params) {

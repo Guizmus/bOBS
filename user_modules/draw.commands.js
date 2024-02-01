@@ -22,8 +22,20 @@ class Command_Draw extends commands.Command {
         refresh_autodraw_timer()
     }
     execute=async function(trigger,params) {
+
         if (!this.config.IADrawer.active)
             return false
+
+        if (params.onlyshow) {
+            add_to_show_queue({
+                "filename" : params.filename,
+                "prompt" : params.prompt,
+                "username" : params.username,
+                "style" : params.style
+            },this)
+            return true;
+        }
+
         const prompt = (trigger.type == "tchat") ? params.content.trim().split(" ").splice(1).join(" ") : params.input;
         const username = (trigger.type == "tchat") ? params.user.get("display_name") : params.userDisplayName;
         if (!prompt) {

@@ -25,15 +25,18 @@ function spawn_viewer () {
     }, 4000);
     setTimeout(()=>{
         spawn_viewer()
-    },2000)
+    },Math.min(timing,5000))
 }
 var viewers_to_show = []
+var timing;
+const animation_duration = 20;
 WebModule.query("getData",{},function(data) {
     viewers_to_show = data.viewers
     _e.streamer_name.innerHTML = data.target.streamer_name
     _e.streamer_avatar.setAttribute("src",data.target.streamer_avatar)
     _e.game_name.innerHTML = data.target.game_name
+    timing = Math.floor(1000*animation_duration/viewers_to_show.length)
     setTimeout(()=>{
         spawn_viewer()
-    },5000)
+    },timing)
 })

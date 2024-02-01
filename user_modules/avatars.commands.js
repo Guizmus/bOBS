@@ -19,21 +19,20 @@ class Command_Avatar_reset extends commands.Command {
         webmodule = new this.tools.WebModules.WebModule("Avatars",{"url_key" : "Avatars"})
     }
     execute=async function(trigger,params) {
-        // console.log(trigger,params,params.userId)
         const user = await this.tools.Users.get(false,params.userId)
-        // console.log(user)
         const new_avatar = await download_image(user.get("profile_image_url"),512)
-        // console.log(new_avatar)
         const target_file_path = avatar_path(params.userId)
-        // console.log(target_file_path)
         fs.renameSync(new_avatar,target_file_path)
-        // console.log(target_file_path)
+        commands.trigger("draw",{
+            "onlyshow":true,
+            "filename" : target_file_path,
+            "prompt" : params.userName+" réinitialise son avatar",
+            "username" : params.userName,
+            "style" : ""
+        })
         this.tools.WebModules.unload_file(target_file_path)
-        // console.log(target_file_path)
         user.set("avatar",webmodule.get_url(false,params.userId+".png?v="+Date.now()))
-        // console.log(user.get("avatar"))
         await user.save();
-        // console.log(user.get("avatar"))
         return user.get("avatar")
     }
     deck_extra = "Qui ?";
@@ -106,6 +105,13 @@ class Command_Avatar_redraw extends commands.Command {
         var new_avatar_temp = await this.APIs.IADrawer.draw(params.userName,avatar_style)
         const target_file_path = avatar_path(params.userId)
         fs.renameSync(new_avatar_temp,target_file_path)
+        commands.trigger("draw",{
+            "onlyshow":true,
+            "filename" : target_file_path,
+            "prompt" : "Avatar de "+params.userName,
+            "username" : params.userName,
+            "style" : avatar_style
+        })
         this.APIs.Discord.post(img_channel_id,"Nouvel avatar pour "+params.userName,target_file_path,params.userName+".png")
         this.tools.WebModules.unload_file(target_file_path)
         const user = await this.tools.Users.get(false,params.userId)
@@ -134,13 +140,16 @@ function download_image(image_url,resize=false) {
         request(image_url)
         .pipe(fs.createWriteStream(destination))
         .on('close', () => {
-            if (resize)
+            if (resize){
                 Jimp.read(destination, function(err, image) {
                     image
                         .resize(resize, resize)
-                        .write(destination);
+                        .write(destination,function(){
+                            resolve(destination)
+                        });
                 })
-            resolve(destination)
+            } else 
+                resolve(destination)
         })
         .on('error', (err) => {
             reject(err);
