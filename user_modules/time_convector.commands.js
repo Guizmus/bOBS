@@ -36,7 +36,7 @@ class Command_Time_convector extends commands.Command {
             add_time(params.add_time)
         } else {
             const original_scene = await this.APIs.OBS.get_current_scene()
-            if (["Lancement", "Raid", "Closure"].includes(original_scene))
+            if (["Lancement", "Raid", "Closure","Cinema"].includes(original_scene))
                 return false;
             if (original_scene != "Discussion")
                 await this.APIs.OBS.set_current_scene("Discussion")
